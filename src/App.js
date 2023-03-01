@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import UserCard from './components/UserCard'
-import { Col, Row} from 'antd';
+import { Col, Row } from 'antd';
 
+export const DataContext = createContext()
 function App() {
   const [users, setUsers] = useState([])
   useEffect(() => {
@@ -12,13 +13,17 @@ function App() {
   }, [])
 
   return (
-    <Row>
-      {users.map((user, index) => {
-        return (
-          <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}><UserCard user={user} index={index} setUsers={setUsers} /></Col>
-        )
-      })}
-    </Row>
+    <DataContext.Provider value={{ users, setUsers }}>
+      <Row>
+        {users.map((user, index) => {
+          return (
+            <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}>
+              <UserCard index={index} />
+            </Col>
+          )
+        })}
+      </Row>
+    </DataContext.Provider>
   );
 }
 
