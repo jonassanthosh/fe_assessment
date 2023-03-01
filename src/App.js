@@ -15,7 +15,7 @@ function App() {
     <Row>
       {users.map((user, index) => {
         return (
-          <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}><UserCard user={user} index={index} /></Col>
+          <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}><UserCard user={user} index={index} setUsers={setUsers} /></Col>
         )
       })}
     </Row>

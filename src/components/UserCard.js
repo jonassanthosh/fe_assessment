@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { EditOutlined, DeleteFilled, HeartOutlined, MailOutlined, PhoneOutlined, GlobalOutlined, HeartFilled } from '@ant-design/icons';
 import { Card } from 'antd';
+// import './user.css'
 
-const UserCard = ({ user, index }) => {
+const iconSize = { fontSize: '18px' }
+const pStyle = { paddingLeft: '10px', paddingBottom: '5px', margin: '0' }
+const divStyle = { display: 'flex', flexDirection: 'col' }
+
+const UserCard = ({ user, setUsers, index }) => {
     const [like, setLike] = useState(false)
     return (
         <Card
@@ -18,15 +23,19 @@ const UserCard = ({ user, index }) => {
                 />
             }
             actions={[
-                like ? <HeartFilled onClick={() => setLike((prev) => !prev)} /> : <HeartOutlined onClick={() => setLike((prev) => !prev)} />,
-                <EditOutlined key="edit" />,
-                <DeleteFilled />
+                like ? <HeartFilled style={{ fontSize: '18px', color: 'red' }} onClick={() => setLike((prev) => !prev)} /> : <HeartOutlined style={{ fontSize: '20px', color: 'red' }} onClick={() => setLike((prev) => !prev)} />,
+                <EditOutlined style={iconSize} key="edit" />,
+                <DeleteFilled
+                    style={iconSize}
+                    onClick={() => {
+                        setUsers((users) => users.filter((_, i) => i !== index))
+                    }} />
             ]}
         >
             <h3 style={{ margin: '0', paddingBottom: '8px', fontWeight: '500' }}>{user.name}</h3>
-            <div style={{ display: 'flex' }}><MailOutlined style={{ fontSize: '18px' }} /><p style={{ paddingLeft: '10px', paddingBottom: '5px', margin: '0' }}>{user.email}</p></div>
-            <div style={{ display: 'flex' }}><PhoneOutlined style={{ fontSize: '18px' }} /><p style={{ paddingLeft: '10px', paddingBottom: '5px', margin: '0' }}>{user.phone}</p></div>
-            <div style={{ display: 'flex' }}><GlobalOutlined style={{ fontSize: '18px' }} /><p style={{ paddingLeft: '10px', paddingBottom: '5px', margin: '0' }}>http://{user.website}</p></div>
+            <div style={divStyle}><MailOutlined style={iconSize} /><p style={pStyle}>{user.email}</p></div>
+            <div style={divStyle}><PhoneOutlined style={iconSize} /><p style={pStyle}>{user.phone}</p></div>
+            <div style={divStyle}><GlobalOutlined style={iconSize} /><p style={pStyle}>http://{user.website}</p></div>
         </Card>
     )
 }
