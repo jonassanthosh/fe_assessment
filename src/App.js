@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from 'react';
+import { Suspense, createContext, useEffect, useState } from 'react';
 import UserCard from './components/UserCard'
 import { Col, Row } from 'antd';
+import Spinner from 'react-spinkit';
 
 export const DataContext = createContext()
 function App() {
@@ -13,17 +14,19 @@ function App() {
   }, [])
 
   return (
-    <DataContext.Provider value={{ users, setUsers }}>
-      <Row>
-        {users.map((user, index) => {
-          return (
-            <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}>
-              <UserCard index={index} />
-            </Col>
-          )
-        })}
-      </Row>
-    </DataContext.Provider>
+    <Suspense fallback={<Spinner name="circle" />}>
+      <DataContext.Provider value={{ users, setUsers }}>
+        <Row>
+          {users.map((user, index) => {
+            return (
+              <Col xl={6} lg={8} md={8} sm={24} xs={24} key={index}>
+                <UserCard index={index} />
+              </Col>
+            )
+          })}
+        </Row>
+      </DataContext.Provider>
+    </Suspense>
   );
 }
 
