@@ -7,7 +7,7 @@ import { DataContext } from '../App';
 
 const iconSize = { fontSize: '18px' }
 const pStyle = { paddingLeft: '10px', paddingBottom: '5px', margin: '0' }
-const divStyle = { display: 'flex', flexDirection: 'col' }
+const divStyle = { display: 'flex' }
 
 
 
